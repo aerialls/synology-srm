@@ -7,6 +7,10 @@ class SynologyHttpException(Exception):
     pass
 
 class Http(object):
+    """HTTP connection to the API.
+
+    This class is responsible for handling all communications with the API.
+    """
 
     def __init__(self, host: str, port: int,
         username: str, password: str, https: bool = True):
@@ -22,6 +26,9 @@ class Http(object):
         self.sid = None
 
     def disable_https_verify(self):
+        """Disable the HTTPS certificate check.
+        This should be used only when using self-signed certificate.
+        """
         urllib3.disable_warnings()
         self.verify = False
 
@@ -53,6 +60,7 @@ class Http(object):
     def call(self, path: str, api: str, method: str,
         version: int = 1, params: dict = {},
         authorized: bool = True):
+        """Perform an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
             path

@@ -2,7 +2,10 @@ from synology_srm import Http
 
 
 class ApiMesh(object):
+    """API Mesh.
 
+    Handles the SYNO.Mesh API namespace.
+    """
     def __init__(self, http: Http):
         self.http = http
 
