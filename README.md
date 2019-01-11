@@ -10,6 +10,8 @@ This library should work with the following devices.
 * RT1900ac
 * RT2600ac
 
+> It's not possible to create another account in SRM with admin permissions. You'll need to use your `admin` account (or the one you renamed at creation).
+
 ## Usage
 
 ```python
