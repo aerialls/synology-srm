@@ -20,7 +20,13 @@ REQUIRED = [
     'requests'
 ]
 
+TEST_REQUIRED = [
+    'nose',
+    'requests_mock'
+]
+
 EXTRAS = {
+    'testing': TEST_REQUIRED
 }
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -87,6 +93,7 @@ setup(
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    test_requires=TEST_REQUIRED,
     include_package_data=True,
     license='MIT',
     classifiers=[
@@ -95,6 +102,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
