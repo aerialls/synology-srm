@@ -49,22 +49,23 @@ class Http(object):
             method='Login',
             version=2,
             params=params,
-            authorized=False
+            restricted=False
         )
 
         self.sid = response['sid']
 
     def call(self, path: str, api: str, method: str,
         version: int = 1, params: dict = {},
-        authorized: bool = True):
+        restricted: bool = True, retried: bool = False):
         """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
             path
         )
 
-        if authorized and self.sid is None:
-            self._login()
+        if restricted:
+            if self.sid is None:
+                self._login()
             params['_sid'] = self.sid
 
         params['api'] = api
@@ -92,6 +93,28 @@ class Http(object):
 
         if not data['success']:
             code = data['error']['code']
+            # 106 Session timeout
+            # 107 Session interrupted by duplicate login
+            if code == 106 or code == 107:
+                if not restricted or retried:
+                    # We should stop here if:
+                    #  1 - We are on a public route, no need to retry the login
+                    #  2 - We already retried the route
+                    raise SynologyHttpException(
+                        code,
+                        "Session timeout even when trying to refresh the token"
+                    )
+                self._login()
+                # Retry the current request why a new token
+                return self.call(
+                    path=path,
+                    api=api,
+                    method=method,
+                    version=version,
+                    params=params,
+                    restricted=True,
+                    retried=True
+                )
             if code == 400:
                 raise SynologyIncorrectPasswordException(
                     400,

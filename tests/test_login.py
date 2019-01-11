@@ -50,6 +50,86 @@ class TestLogin(unittest.TestCase):
         self.http.sid = None
 
     @requests_mock.Mocker()
+    def test_refresh_sid_login(self, m):
+        m.get('{}/auth.cgi'.format(self.http._get_base_url()), [
+            {
+                'json': {
+                    'data': {
+                        'sid': 'sid_one'
+                    },
+                    'success': True
+                }
+            },
+            {
+                'json': {
+                    'data': {
+                        'sid': 'sid_two'
+                    },
+                    'success': True
+                }
+            }
+        ])
+
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), [
+            {
+                'json': {
+                    'error': {
+                        'code': 106
+                    },
+                    'success': False
+                }
+            },
+            {
+                'json': {
+                    'data': {
+                         'devices': []
+                    },
+                    'success': True
+                }
+            }
+        ])
+
+        self.http._login()
+        self.assertEqual(self.http.sid, 'sid_one')
+
+        # Try another API to force the SID renewal
+        devices = self.client.mesh.network_wifidevice()
+
+        self.assertEqual(self.http.sid, 'sid_two')
+        self.assertEqual(devices, [])
+
+    @requests_mock.Mocker()
+    def test_loop_redirect(self, m):
+        m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
+            'data': {
+                'sid': 'sid'
+            },
+            'success': True
+        })
+
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), [
+            {
+                'json': {
+                    'error': {
+                        'code': 106
+                    },
+                    'success': False
+                }
+            },
+            {
+                'json': {
+                    'error': {
+                        'code': 106
+                    },
+                    'success': False
+                }
+            }
+        ])
+
+        with self.assertRaises(synology_srm.SynologyHttpException) as cm:
+            devices = self.client.mesh.network_wifidevice()
+
+    @requests_mock.Mocker()
     def test_login_or_password_incorrect(self, m):
         m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
             'error': {
