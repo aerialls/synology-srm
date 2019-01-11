@@ -14,9 +14,10 @@ URL = 'https://github.com/aerialls/synology-srm'
 EMAIL = 'julien@aerialls.io'
 AUTHOR = 'Julien Brochet'
 VERSION = '0.0.1'
+REQUIRES_PYTHON = '>=3.5.3'
 
 REQUIRED = [
-    'requests>=1.0.0'
+    'requests'
 ]
 
 EXTRAS = {
@@ -81,6 +82,7 @@ setup(
     long_description_content_type='text/markdown',
     author=AUTHOR,
     author_email=EMAIL,
+    python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
@@ -91,6 +93,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
