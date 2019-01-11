@@ -9,6 +9,7 @@ This library should work with the following devices.
 
 * RT1900ac
 * RT2600ac
+* Test
 
 ## Usage
 
