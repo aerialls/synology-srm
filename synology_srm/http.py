@@ -57,7 +57,7 @@ class Http(object):
     def call(self, path: str, api: str, method: str,
         version: int = 1, params: dict = {},
         authorized: bool = True):
-        """Perform an HTTP call to the Synology API."""
+        """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
             path

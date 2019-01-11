@@ -1,5 +1,6 @@
-from synology_srm import Http
+# -*- coding: utf-8 -*-
 
+from synology_srm import Http
 
 class ApiMesh(object):
     """API Mesh.
