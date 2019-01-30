@@ -76,3 +76,19 @@ class TestMesh(unittest.TestCase):
         self.assertEqual(devices[1]['mac'], '64:a2:f9:7a:ce:0a')
 
         self.http.sid = None
+
+    @requests_mock.Mocker()
+    def test_network_wanstatus(self, m):
+        self._mock_login(m)
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), json={
+            'data': {
+                "wan_connected": True
+            },
+            'success': True
+        })
+
+        wanstatus = self.client.mesh.network_wanstatus()
+
+        self.assertEqual(wanstatus['wan_connected'], True)
+
+        self.http.sid = None

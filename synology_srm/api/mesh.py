@@ -1,16 +1,50 @@
 # -*- coding: utf-8 -*-
 
-from synology_srm import Http
+from synology_srm.api import ApiBase
 
-class ApiMesh(object):
+class ApiMesh(ApiBase):
     """API Mesh.
 
     Handles the SYNO.Mesh API namespace.
     """
-    def __init__(self, http: Http):
-        self.http = http
+
+    def network_wanstatus(self):
+        """Gets the network WAN status.
+        {
+            "wan_connected": true
+        }
+        """
+        return self.http.call(
+            path='entry.cgi',
+            api='SYNO.Mesh.Network.WANStatus',
+            method='get',
+            version=1
+        )
 
     def network_wifidevice(self):
+        """Gets the network Wi-Fi devices.
+        {
+            "devices": [
+            {
+                "band": "[...]",
+                "connection": "[...]",
+                "current_rate": [...],
+                "hostname": "[...]",
+                "is_guest": false,
+                "mac": "[...]",
+                "max_rate": [...],
+                "mesh_node_id": [...],
+                "netif": "[...]",
+                "rate_quality": "[...]",
+                "signalstrength": [...],
+                "transferRX": [...],
+                "transferRX_rate": [...],
+                "transferTX": [...],
+                "transferTX_rate": [...]
+            },
+            [...]
+        }
+        """
         response = self.http.call(
             path='entry.cgi',
             api='SYNO.Mesh.Network.WifiDevice',

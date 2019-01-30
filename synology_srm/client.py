@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from synology_srm import Http
-from synology_srm.api import ApiMesh
+from synology_srm.api import ApiMesh, ApiCore
 
 class Client(object):
     """Main entry point for using the API.
@@ -19,6 +19,7 @@ class Client(object):
         )
 
         self.api = {
+            'core': ApiCore(self.http),
             'mesh': ApiMesh(self.http)
         }
 
