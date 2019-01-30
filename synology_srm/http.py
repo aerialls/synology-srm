@@ -63,16 +63,23 @@ class Http(object):
             path
         )
 
-        if restricted:
-            if self.sid is None:
-                self._login()
-            params['_sid'] = self.sid
+        if restricted and self.sid is None:
+            self._login()
+
+        cookies = {}
+        if self.sid is not None:
+            cookies['id'] = self.sid
 
         params['api'] = api
         params['method'] = method
         params['version'] = version
 
-        response = requests.get(url, verify=self.verify, params=params)
+        response = requests.get(
+            url,
+            verify=self.verify,
+            params=params,
+            cookies=cookies
+        )
 
         if response.status_code != 200:
             raise SynologyHttpException(
