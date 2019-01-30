@@ -112,7 +112,7 @@ class Http(object):
                         "Session timeout even when trying to refresh the token"
                     )
                 self._login()
-                # Retry the current request why a new token
+                # Retry the current request with a new token
                 return self.call(
                     path=path,
                     api=api,
