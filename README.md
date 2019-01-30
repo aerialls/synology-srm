@@ -26,7 +26,13 @@ client = synology_srm.Client(
 )
 ```
 
-You can now access all different namespaces from the API. The only namespace available currently is `mesh` with the following method.
+You can now access all namespaces from the API. The following methods are availabe.
+
+* Core
+  * system_utilization
+* Mesh
+  * network_wanstatus
+  * network_wifidevice
 
 ```python
 devices = client.mesh.network_wifidevice()
