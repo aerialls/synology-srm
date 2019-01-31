@@ -11,7 +11,7 @@ class TestBase(unittest.TestCase):
             host='192.168.1.254',
             port=8001,
             username='admin',
-            password='admin'
+            password='admin',
         )
 
         self.http = self.client.http

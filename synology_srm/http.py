@@ -61,7 +61,7 @@ class Http(object):
         """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
-            path
+            path,
         )
 
         if restricted and self.sid is None:
@@ -79,7 +79,7 @@ class Http(object):
             url,
             verify=self.verify,
             params=params,
-            cookies=cookies
+            cookies=cookies,
         )
 
         if response.status_code != 200:
@@ -121,7 +121,7 @@ class Http(object):
                     version=version,
                     params=params,
                     restricted=True,
-                    retried=True
+                    retried=True,
                 )
             if code == 400:
                 raise SynologyIncorrectPasswordException(

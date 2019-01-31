@@ -19,7 +19,7 @@ class ApiMesh(ApiBase):
             path='entry.cgi',
             api='SYNO.Mesh.Network.WANStatus',
             method='get',
-            version=1
+            version=1,
         )
 
     def network_wifidevice(self):
@@ -50,7 +50,7 @@ class ApiMesh(ApiBase):
             path='entry.cgi',
             api='SYNO.Mesh.Network.WifiDevice',
             method='get',
-            version=1
+            version=1,
         )
 
         return response['devices']

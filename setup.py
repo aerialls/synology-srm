@@ -4,8 +4,8 @@
 import io
 import os
 import sys
-from shutil import rmtree
 
+from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 NAME = 'synology-srm'
@@ -18,16 +18,16 @@ REQUIRES_PYTHON = '>=3.5.3'
 
 REQUIRED = [
     'requests',
-    'urllib3'
+    'urllib3',
 ]
 
 TEST_REQUIRED = [
     'nose',
-    'requests_mock'
+    'requests_mock',
 ]
 
 EXTRAS = {
-    'testing': TEST_REQUIRED
+    'testing': TEST_REQUIRED,
 }
 
 here = os.path.abspath(os.path.dirname(__file__))

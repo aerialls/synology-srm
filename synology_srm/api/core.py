@@ -34,5 +34,5 @@ class ApiCore(ApiBase):
             path='entry.cgi',
             api='SYNO.Core.System.Utilization',
             method='get',
-            version=1
+            version=1,
         )

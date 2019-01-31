@@ -23,7 +23,7 @@ class Client(object):
 
         self.api = {
             'core': ApiCore(self.http),
-            'mesh': ApiMesh(self.http)
+            'mesh': ApiMesh(self.http),
         }
 
     def __getattr__(self, item):
