@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from synology_srm.api.base import ApiBase
+from synology_srm.api import Api
 
 
-class ApiCore(ApiBase):
+class ApiCore(Api):
     """API Core.
 
     Handles the SYNO.Core API namespace.

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from synology_srm.api.base import ApiBase
+from synology_srm.api import Api
 
 
-class ApiMesh(ApiBase):
+class ApiMesh(Api):
     """API Mesh.
 
     Handles the SYNO.Mesh API namespace.

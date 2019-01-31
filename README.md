@@ -22,26 +22,27 @@ client = synology_srm.Client(
     port=8001,
     https=True
     username='admin',
-    password='FZan7xw7eh3z9Zzj',
+    password='admin',
 )
 ```
 
 You can now access all namespaces from the API. The following methods are availabe.
 
+* Base
+  * info
 * Core
   * system_utilization
 * Mesh
   * network_wanstatus
   * network_wifidevice
 
-```python
-devices = client.mesh.network_wifidevice()
+For instance, to list all endpoints available in the API.
 
-for device in devices:
-    print("Found device {} with MAC address {}".format(
-        device['hostname'],
-        device['mac']
-    ))
+```python
+endpoints = client.base.info()
+
+for endpoint in endpoints:
+    print(endpoint)
 ```
 
 ## HTTPS auto-signed certificate
