@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import requests_mock
-import synology_srm
 
+from tests.base import TestBase
 from synology_srm.http import (
     SynologyHttpException,
     SynologyAccountDisabledException,
@@ -12,17 +11,7 @@ from synology_srm.http import (
 )
 
 
-class TestLogin(unittest.TestCase):
-    def setUp(self):
-        """Set up things to be run when tests are started."""
-        self.client = synology_srm.Client(
-            host='192.168.1.254',
-            port=8001,
-            username='admin',
-            password='admin'
-        )
-
-        self.http = self.client.http
+class TestLogin(TestBase):
 
     def test_initial_state(self):
         self.assertIs(self.client.http.sid, None)

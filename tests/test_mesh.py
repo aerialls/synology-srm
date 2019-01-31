@@ -1,29 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import requests_mock
-import synology_srm
+
+from tests.base import TestBase
 
 
-class TestMesh(unittest.TestCase):
-    def setUp(self):
-        """Set up things to be run when tests are started."""
-        self.client = synology_srm.Client(
-            host='192.168.1.254',
-            port=8001,
-            username='admin',
-            password='admin'
-        )
-
-        self.http = self.client.http
-
-    def _mock_login(self, m):
-        m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
-            'data': {
-                'sid': 'Sylgv43ED9AAECBBFD5C08D1D'
-            },
-            'success': True
-        })
+class TestMesh(TestBase):
 
     @requests_mock.Mocker()
     def test_network_wifidevice(self, m):
@@ -89,7 +71,6 @@ class TestMesh(unittest.TestCase):
         })
 
         wanstatus = self.client.mesh.network_wanstatus()
-
         self.assertEqual(wanstatus['wan_connected'], True)
 
         self.http.sid = None
