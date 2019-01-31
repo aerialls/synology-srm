@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import urllib3
+
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 class Http(object):
@@ -27,7 +28,7 @@ class Http(object):
         """Disable the HTTPS certificate check.
         This should be used only when using self-signed certificate.
         """
-        urllib3.disable_warnings()
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
         self.verify = False
 
     def _get_base_url(self):

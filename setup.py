@@ -18,7 +18,6 @@ REQUIRES_PYTHON = '>=3.5.3'
 
 REQUIRED = [
     'requests',
-    'urllib3',
 ]
 
 TEST_REQUIRED = [
