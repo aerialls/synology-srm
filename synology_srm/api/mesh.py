@@ -24,8 +24,7 @@ class ApiMesh(ApiBase):
 
     def network_wifidevice(self):
         """Gets the network Wi-Fi devices.
-        {
-            "devices": [
+        [
             {
                 "band": "[...]",
                 "connection": "[...]",
@@ -44,7 +43,7 @@ class ApiMesh(ApiBase):
                 "transferTX_rate": [...]
             },
             [...]
-        }
+        ]
         """
         response = self.http.call(
             path='entry.cgi',
