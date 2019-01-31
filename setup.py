@@ -23,8 +23,7 @@ REQUIRED = [
 
 TEST_REQUIRED = [
     'nose',
-    'requests_mock',
-    'flake8'
+    'requests_mock'
 ]
 
 EXTRAS = {
