@@ -4,6 +4,14 @@ import unittest
 import requests_mock
 import synology_srm
 
+from synology_srm.http import (
+    SynologyHttpException,
+    SynologyAccountDisabledException,
+    SynologyIncorrectPasswordException,
+    SynologyPermissionDeniedException
+)
+
+
 class TestLogin(unittest.TestCase):
     def setUp(self):
         """Set up things to be run when tests are started."""
@@ -23,7 +31,7 @@ class TestLogin(unittest.TestCase):
     def test_not_found_error(self, m):
         m.get('{}/auth.cgi'.format(self.http._get_base_url()), status_code=404)
 
-        with self.assertRaises(synology_srm.SynologyHttpException) as cm:
+        with self.assertRaises(SynologyHttpException):
             self.http._login()
 
     @requests_mock.Mocker()
@@ -32,7 +40,7 @@ class TestLogin(unittest.TestCase):
             'hello': 'world'
         })
 
-        with self.assertRaises(synology_srm.SynologyHttpException) as cm:
+        with self.assertRaises(SynologyHttpException):
             self.http._login()
 
     @requests_mock.Mocker()
@@ -126,8 +134,8 @@ class TestLogin(unittest.TestCase):
             }
         ])
 
-        with self.assertRaises(synology_srm.SynologyHttpException) as cm:
-            devices = self.client.mesh.network_wifidevice()
+        with self.assertRaises(SynologyHttpException):
+            self.client.mesh.network_wifidevice()
 
     @requests_mock.Mocker()
     def test_login_or_password_incorrect(self, m):
@@ -138,7 +146,7 @@ class TestLogin(unittest.TestCase):
             'success': False
         })
 
-        with self.assertRaises(synology_srm.SynologyIncorrectPasswordException) as cm:
+        with self.assertRaises(SynologyIncorrectPasswordException):
             self.http._login()
 
     @requests_mock.Mocker()
@@ -150,7 +158,7 @@ class TestLogin(unittest.TestCase):
             'success': False
         })
 
-        with self.assertRaises(synology_srm.SynologyAccountDisabledException) as cm:
+        with self.assertRaises(SynologyAccountDisabledException):
             self.http._login()
 
     @requests_mock.Mocker()
@@ -162,5 +170,5 @@ class TestLogin(unittest.TestCase):
             'success': False
         })
 
-        with self.assertRaises(synology_srm.SynologyPermissionDeniedException) as cm:
+        with self.assertRaises(SynologyPermissionDeniedException):
             self.http._login()

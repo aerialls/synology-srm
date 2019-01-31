@@ -4,6 +4,7 @@ import unittest
 import requests_mock
 import synology_srm
 
+
 class TestCore(unittest.TestCase):
     def setUp(self):
         """Set up things to be run when tests are started."""

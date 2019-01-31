@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from synology_srm import Http
+from synology_srm.http import Http
+
 
 class ApiBase(object):
     """API base.

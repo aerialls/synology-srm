@@ -3,6 +3,7 @@
 import requests
 import urllib3
 
+
 class Http(object):
     """HTTP connection to the API.
 
@@ -10,7 +11,7 @@ class Http(object):
     """
 
     def __init__(self, host: str, port: int,
-        username: str, password: str, https: bool = True):
+                 username: str, password: str, https: bool = True):
         self.host = host
         self.port = port
 
@@ -55,8 +56,8 @@ class Http(object):
         self.sid = response['sid']
 
     def call(self, path: str, api: str, method: str,
-        version: int = 1, params: dict = {},
-        restricted: bool = True, retried: bool = False):
+             version: int = 1, params: dict = {},
+             restricted: bool = True, retried: bool = False):
         """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
@@ -145,6 +146,7 @@ class Http(object):
 
         return data['data']
 
+
 class SynologyException(Exception):
     """Base Synology exception from HTTP requests."""
     def __init__(self, code, message):
@@ -152,18 +154,21 @@ class SynologyException(Exception):
         message = "{} (error={})".format(message, code)
         super(SynologyException, self).__init__(message)
 
+
 class SynologyHttpException(Exception):
     pass
+
 
 class SynologyIncorrectPasswordException(SynologyException):
     """API error code 400."""
     pass
 
+
 class SynologyAccountDisabledException(SynologyException):
     """API error code 401."""
     pass
 
+
 class SynologyPermissionDeniedException(SynologyException):
     """API error code 402."""
     pass
-

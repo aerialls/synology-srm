@@ -11,4 +11,5 @@ cache: pip
 install:
   - pip install -e '.[testing]'
 script:
+  - flake8 synology_srm/ tests/
   - nosetests --nocapture tests/

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from .http import *
-from .client import *
+from .client import Client
+
+__all__ = ['Client']

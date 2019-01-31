@@ -17,12 +17,14 @@ VERSION = '0.0.4'
 REQUIRES_PYTHON = '>=3.5.3'
 
 REQUIRED = [
-    'requests'
+    'requests',
+    'urllib3'
 ]
 
 TEST_REQUIRED = [
     'nose',
-    'requests_mock'
+    'requests_mock',
+    'flake8'
 ]
 
 EXTRAS = {
@@ -43,6 +45,7 @@ if not VERSION:
         exec(f.read(), about)
 else:
     about['__version__'] = VERSION
+
 
 class UploadCommand(Command):
     """Support setup.py upload."""
@@ -80,6 +83,7 @@ class UploadCommand(Command):
 
         sys.exit()
 
+
 setup(
     name=NAME,
     version=about['__version__'],
@@ -93,7 +97,7 @@ setup(
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
-    test_requires=TEST_REQUIRED,
+    tests_require=TEST_REQUIRED,
     include_package_data=True,
     license='MIT',
     classifiers=[
