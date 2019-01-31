@@ -4,7 +4,7 @@ import unittest
 import synology_srm
 
 
-class TestBase(unittest.TestCase):
+class TestCaseApi(unittest.TestCase):
     def setUp(self):
         """Set up things to be run when tests are started."""
         self.client = synology_srm.Client(

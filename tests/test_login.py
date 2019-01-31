@@ -2,7 +2,7 @@
 
 import requests_mock
 
-from tests.base import TestBase
+from tests.api import TestCaseApi
 from synology_srm.http import (
     SynologyHttpException,
     SynologyAccountDisabledException,
@@ -11,7 +11,7 @@ from synology_srm.http import (
 )
 
 
-class TestLogin(TestBase):
+class TestLogin(TestCaseApi):
 
     def test_initial_state(self):
         self.assertIs(self.client.http.sid, None)

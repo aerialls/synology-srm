@@ -2,10 +2,10 @@
 
 import requests_mock
 
-from tests.base import TestBase
+from tests.api import TestCaseApi
 
 
-class TestCore(TestBase):
+class TestCore(TestCaseApi):
 
     @requests_mock.Mocker()
     def test_system_utilization(self, m):

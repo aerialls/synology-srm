@@ -2,10 +2,10 @@
 
 import requests_mock
 
-from tests.base import TestBase
+from tests.api import TestCaseApi
 
 
-class TestBase(TestBase):
+class TestBase(TestCaseApi):
 
     @requests_mock.Mocker()
     def test_info(self, m):
