@@ -9,6 +9,7 @@ matrix:
       sudo: true
 cache: pip
 install:
-  - pip install -e '.[testing]'
+  - pip install pipenv
+  - pipenv install --dev
 script:
-  - nosetests --nocapture tests/
+  - pipenv run nosetests --nocapture tests/

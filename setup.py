@@ -20,15 +20,6 @@ REQUIRED = [
     'requests',
 ]
 
-TEST_REQUIRED = [
-    'nose',
-    'requests_mock',
-]
-
-EXTRAS = {
-    'testing': TEST_REQUIRED,
-}
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 try:
@@ -94,8 +85,6 @@ setup(
     url=URL,
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
-    extras_require=EXTRAS,
-    tests_require=TEST_REQUIRED,
     include_package_data=True,
     license='MIT',
     classifiers=[
