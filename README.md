@@ -32,6 +32,7 @@ You can now access all namespaces from the API. The following methods are availa
   * encryption
   * info
 * Core
+  * ddns_extip
   * system_utilization
 * Mesh
   * network_wanstatus

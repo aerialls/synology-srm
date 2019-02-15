@@ -106,3 +106,24 @@ class TestCore(TestCaseApi):
         self.assertEqual(system_utilization['memory']['avail_swap'], 260332)
 
         self.http.sid = None
+
+    @requests_mock.Mocker()
+    def test_ddns_extip(self, m):
+        self._mock_login(m)
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), json={
+            'data': [
+                {
+                    'ip': '92.10.197.59',
+                    'ipv6': '0:0:0:0:0:0:0:0',
+                    'type': 'WAN'
+                }
+            ],
+            'success': True
+        })
+
+        ddns_extip = self.client.core.ddns_extip()
+
+        self.assertEqual(len(ddns_extip), 1)
+        self.assertEqual(ddns_extip[0]['ip'], '92.10.197.59')
+
+        self.http.sid = None

@@ -17,3 +17,12 @@ class ApiCore(Api):
             method='get',
             version=1,
         )
+
+    def ddns_extip(self):
+        """Gets the external IP address."""
+        return self.http.call(
+            path='entry.cgi',
+            api='SYNO.Core.DDNS.ExtIP',
+            method='list',
+            version=1,
+        )
