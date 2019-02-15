@@ -4,6 +4,17 @@ import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+COMMON_ERROR_CODES = {
+    100: "Unknown error",
+    101: "No parameter of API, method or version",
+    102: "The requested API does not exist",
+    103: "The requested method does not exist",
+    104: "The requested version does not support the functionality",
+    105: "The logged in session does not have permission",
+    106: "Session timeout",
+    107: "Session interrupted by duplicate login",
+}
+
 
 class Http(object):
     """HTTP connection to the API.
@@ -45,20 +56,30 @@ class Http(object):
             'passwd': self.password
         }
 
+        errors = {
+            400: "No such account or incorrect password",
+            401: "Account disabled",
+            402: "Permission denied",
+            403: "2-step verification code required",
+            404: "Failed to authenticate 2-step verification code",
+        }
+
         response = self.call(
             path='auth.cgi',
             api='SYNO.API.Auth',
             method='Login',
             version=2,
             params=params,
-            restricted=False
+            restricted=False,
+            errors=errors,
         )
 
         self.sid = response['sid']
 
     def call(self, path: str, api: str, method: str,
              version: int = 1, params: dict = {},
-             restricted: bool = True, retried: bool = False):
+             restricted: bool = True, retried: bool = False,
+             errors: dict = {}):
         """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
@@ -102,74 +123,85 @@ class Http(object):
 
         if not data['success']:
             code = data['error']['code']
-            # 106 Session timeout
-            # 107 Session interrupted by duplicate login
-            if code == 106 or code == 107:
-                if not restricted or retried:
-                    # We should stop here if:
-                    #  1 - We are on a public route, no need to retry the login
-                    #  2 - We already retried the route
-                    raise SynologyHttpException(
-                        code,
-                        "Session timeout even when trying to refresh the token"
+
+            if code >= 100 and code < 200:
+                message = self._get_common_error_message(code)
+
+                # 106 Session timeout
+                # 107 Session interrupted by duplicate login
+                if code == 106 or code == 107:
+                    if not restricted or retried:
+                        # We should stop here if:
+                        #  1 - Public route, no need to retry the login
+                        #  2 - We already retried the route
+                        raise SynologyCommonError(
+                            code,
+                            message,
+                        )
+                    self._login()
+                    # Retry the current request with a new token
+                    return self.call(
+                        path=path,
+                        api=api,
+                        method=method,
+                        version=version,
+                        params=params,
+                        restricted=True,
+                        retried=True,
+                        errors=errors,
                     )
-                self._login()
-                # Retry the current request with a new token
-                return self.call(
-                    path=path,
-                    api=api,
-                    method=method,
-                    version=version,
-                    params=params,
-                    restricted=True,
-                    retried=True,
-                )
-            if code == 400:
-                raise SynologyIncorrectPasswordException(
-                    400,
-                    "No such account or incorrect password"
-                )
-            if code == 401:
-                raise SynologyAccountDisabledException(
-                    401,
-                    "Account disabled"
-                )
-            if code == 402:
-                raise SynologyPermissionDeniedException(
-                    402,
-                    "Permission denied"
+
+                raise SynologyCommonError(
+                    code,
+                    message,
                 )
 
-            raise SynologyException(
+            if code in errors:
+                message = errors[code]
+            else:
+                message = "Unknown API error, please check the documentation"
+
+            raise SynologyApiError(
                 code,
-                "Unknown error, please check the Synology API documentation"
+                message,
             )
 
         return data['data']
 
+    def _get_common_error_message(self, code):
+        """Gets the official message errror from
+        the API documentation
+        """
+        if code not in COMMON_ERROR_CODES:
+            return "Unknown common error, please check the documentation"
+        return COMMON_ERROR_CODES[code]
+
 
 class SynologyException(Exception):
-    """Base Synology exception from HTTP requests."""
+    """Base Synology exception."""
+    pass
+
+
+class SynologyHttpException(SynologyException):
+    """Synology HTTP exception."""
+    pass
+
+
+class SynologyError(SynologyException):
+    """Base Synology error."""
     def __init__(self, code, message):
         self.code = code
-        message = "{} (error={})".format(message, code)
-        super(SynologyException, self).__init__(message)
+        self.message = message
+        super(SynologyException, self).__init__(
+            "{} (error={})".format(message, code)
+        )
 
 
-class SynologyHttpException(Exception):
+class SynologyCommonError(SynologyError):
+    """Synology common errror."""
     pass
 
 
-class SynologyIncorrectPasswordException(SynologyException):
-    """API error code 400."""
-    pass
-
-
-class SynologyAccountDisabledException(SynologyException):
-    """API error code 401."""
-    pass
-
-
-class SynologyPermissionDeniedException(SynologyException):
-    """API error code 402."""
+class SynologyApiError(SynologyError):
+    """Synology API error."""
     pass
