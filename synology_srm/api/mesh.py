@@ -10,11 +10,7 @@ class ApiMesh(Api):
     """
 
     def network_wanstatus(self):
-        """Gets the network WAN status.
-        {
-            "wan_connected": true
-        }
-        """
+        """Gets the network WAN status."""
         return self.http.call(
             path='entry.cgi',
             api='SYNO.Mesh.Network.WANStatus',
@@ -23,28 +19,7 @@ class ApiMesh(Api):
         )
 
     def network_wifidevice(self):
-        """Gets the network Wi-Fi devices.
-        [
-            {
-                "band": "[...]",
-                "connection": "[...]",
-                "current_rate": [...],
-                "hostname": "[...]",
-                "is_guest": false,
-                "mac": "[...]",
-                "max_rate": [...],
-                "mesh_node_id": [...],
-                "netif": "[...]",
-                "rate_quality": "[...]",
-                "signalstrength": [...],
-                "transferRX": [...],
-                "transferRX_rate": [...],
-                "transferTX": [...],
-                "transferTX_rate": [...]
-            },
-            [...]
-        ]
-        """
+        """Gets the network Wi-Fi devices."""
         response = self.http.call(
             path='entry.cgi',
             api='SYNO.Mesh.Network.WifiDevice',

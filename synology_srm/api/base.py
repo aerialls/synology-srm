@@ -10,21 +10,7 @@ class ApiBase(Api):
     """
 
     def info(self):
-        """Gets the API info list.
-        {
-            "SYNO.API.Auth": {
-                "maxVersion": 3,
-                "minVersion": 1,
-                "path": "auth.cgi"
-            },
-            "SYNO.API.Encryption": {
-                "maxVersion": 1,
-                "minVersion": 1,
-                "path": "encryption.cgi"
-            },
-            [...]
-        }
-        """
+        """Gets the API info list."""
         return self.http.call(
             path='query.cgi',
             api='SYNO.API.Info',

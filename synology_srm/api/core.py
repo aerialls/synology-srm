@@ -10,26 +10,7 @@ class ApiCore(Api):
     """
 
     def system_utilization(self):
-        """Gets the system utilization.
-        {
-            "cpu": {
-                [...]
-            },
-            "disk": {
-                [...]
-            },
-            "memory": {
-                [...]
-            },
-            "network": [
-                [...]
-            ],
-            "space": {
-                [...]
-            },
-            "time": [...]
-        }
-        """
+        """Gets the system utilization."""
         return self.http.call(
             path='entry.cgi',
             api='SYNO.Core.System.Utilization',
