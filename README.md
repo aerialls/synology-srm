@@ -20,7 +20,7 @@ import synology_srm
 client = synology_srm.Client(
     host='192.168.1.254',
     port=8001,
-    https=True
+    https=True,
     username='admin',
     password='admin',
 )
