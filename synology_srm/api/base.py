@@ -21,3 +21,12 @@ class ApiBase(Api):
             },
             restricted=False,
         )
+
+    def encryption(self):
+        """Gets the API encryption."""
+        return self.http.call(
+            path='encryption.cgi',
+            api='SYNO.API.Encryption',
+            method='getinfo',
+            version=1,
+        )

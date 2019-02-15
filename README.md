@@ -29,6 +29,7 @@ client = synology_srm.Client(
 You can now access all namespaces from the API. The following methods are availabe.
 
 * Base
+  * encryption
   * info
 * Core
   * system_utilization
