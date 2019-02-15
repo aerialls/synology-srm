@@ -127,3 +127,38 @@ class TestCore(TestCaseApi):
         self.assertEqual(ddns_extip[0]['ip'], '92.10.197.59')
 
         self.http.sid = None
+
+    @requests_mock.Mocker()
+    def test_ddns_record(self, m):
+        self._mock_login(m)
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), json={
+            'data': {
+                'next_update_time': '2019-02-16 08:52',
+                'records': [
+                    {
+                        'enable': True,
+                        'heartbeat': True,
+                        'hostname': 'foobar.synology.me',
+                        'id': 'Synology',
+                        'ip': '92.10.197.59',
+                        'ipv6': '0:0:0:0:0:0:0:0',
+                        'lastupdated': '2019-02-15 08:52',
+                        'net': 'DEFAULT',
+                        'provider': 'Synology',
+                        'status': 'service_ddns_normal',
+                        'username': 'foobar@gmail.com'
+                    }
+                ]
+            },
+            'success': True
+        })
+
+        ddns_record = self.client.core.ddns_record()
+
+        self.assertEqual(len(ddns_record['records']), 1)
+        self.assertEqual(
+            ddns_record['records'][0]['hostname'],
+            'foobar.synology.me',
+        )
+
+        self.http.sid = None

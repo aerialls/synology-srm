@@ -26,3 +26,12 @@ class ApiCore(Api):
             method='list',
             version=1,
         )
+
+    def ddns_record(self):
+        """Gets the DDNS record."""
+        return self.http.call(
+            path='entry.cgi',
+            api='SYNO.Core.DDNS.Record',
+            method='list',
+            version=1,
+        )
