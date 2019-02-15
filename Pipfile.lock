@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f8b49848ad2655c84a7db060d980911540e099a5c9a6dc0a7743589360ecaa67"
+            "sha256": "c5b348bf69a58dfae0f6e1b306cdbd009021c66598dd6d648566497718e303f0"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -140,6 +140,10 @@
                 "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
             ],
             "version": "==1.12.0"
+        },
+        "synology-srm": {
+            "editable": true,
+            "path": "."
         },
         "urllib3": {
             "hashes": [
