@@ -74,3 +74,32 @@ class TestMesh(TestCaseApi):
         self.assertEqual(wanstatus['wan_connected'], True)
 
         self.http.sid = None
+
+    @requests_mock.Mocker()
+    def test_system_info(self, m):
+        self._mock_login(m)
+        m.get('{}/entry.cgi'.format(self.http._get_base_url()), json={
+            'data': {
+                'nodes': [
+                    {
+                        'firmware_ver': 'SRM 1.2-7742 Update 5',
+                        'is_re': False,
+                        'model': 'RT2600ac',
+                        'node_id': 0,
+                        'sn': '176XXXXXX01',
+                        'unique': 'synology_ipq806x_rt2600ac',
+                        'uptime': 1833868
+                    }
+                ],
+                'total': 1
+            },
+            'success': True
+        })
+
+        system_info = self.client.mesh.system_info()
+        self.assertEqual(
+            system_info['nodes'][0]['firmware_ver'],
+            "SRM 1.2-7742 Update 5",
+        )
+
+        self.http.sid = None

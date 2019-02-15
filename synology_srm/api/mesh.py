@@ -28,3 +28,12 @@ class ApiMesh(Api):
         )
 
         return response['devices']
+
+    def system_info(self):
+        """Gets the SRM system info."""
+        return self.http.call(
+            path='entry.cgi',
+            api='SYNO.Mesh.System.Info',
+            method='get',
+            version=1,
+        )

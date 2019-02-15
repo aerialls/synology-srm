@@ -38,6 +38,7 @@ You can now access all namespaces from the API. The following methods are availa
 * Mesh
   * network_wanstatus
   * network_wifidevice
+  * system_info
 
 For instance, to list all endpoints available in the API.
 
