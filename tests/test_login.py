@@ -183,6 +183,42 @@ class TestLogin(TestCaseApi):
         )
 
     @requests_mock.Mocker()
+    def test_out_of_bound_common(self, m):
+        m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
+            'error': {
+                'code': 123
+            },
+            'success': False
+        })
+
+        with self.assertRaises(SynologyCommonError) as e:
+            self.http._login()
+
+        self.assertEqual(e.exception.code, 123)
+        self.assertEqual(
+            e.exception.message,
+            "Unknown common error, please check the documentation"
+        )
+
+    @requests_mock.Mocker()
+    def test_out_of_bound_api(self, m):
+        m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
+            'error': {
+                'code': 444
+            },
+            'success': False
+        })
+
+        with self.assertRaises(SynologyApiError) as e:
+            self.http._login()
+
+        self.assertEqual(e.exception.code, 444)
+        self.assertEqual(
+            e.exception.message,
+            "Unknown API error, please check the documentation"
+        )
+
+    @requests_mock.Mocker()
     def test_common_errors(self, m):
         for code, message in COMMON_ERROR_CODES.items():
             m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
