@@ -4,10 +4,10 @@ import requests_mock
 
 from tests.api import TestCaseApi
 from synology_srm.http import (
+    COMMON_ERROR_CODES,
     SynologyHttpException,
-    SynologyAccountDisabledException,
-    SynologyIncorrectPasswordException,
-    SynologyPermissionDeniedException
+    SynologyCommonError,
+    SynologyApiError,
 )
 
 
@@ -123,8 +123,10 @@ class TestLogin(TestCaseApi):
             }
         ])
 
-        with self.assertRaises(SynologyHttpException):
+        with self.assertRaises(SynologyCommonError) as e:
             self.client.mesh.network_wifidevice()
+
+        self.assertEqual(e.exception.code, 106)
 
     @requests_mock.Mocker()
     def test_login_or_password_incorrect(self, m):
@@ -135,8 +137,14 @@ class TestLogin(TestCaseApi):
             'success': False
         })
 
-        with self.assertRaises(SynologyIncorrectPasswordException):
+        with self.assertRaises(SynologyApiError) as e:
             self.http._login()
+
+        self.assertEqual(e.exception.code, 400)
+        self.assertEqual(
+            e.exception.message,
+            "No such account or incorrect password"
+        )
 
     @requests_mock.Mocker()
     def test_account_disabled(self, m):
@@ -147,8 +155,14 @@ class TestLogin(TestCaseApi):
             'success': False
         })
 
-        with self.assertRaises(SynologyAccountDisabledException):
+        with self.assertRaises(SynologyApiError) as e:
             self.http._login()
+
+        self.assertEqual(e.exception.code, 401)
+        self.assertEqual(
+            e.exception.message,
+            "Account disabled"
+        )
 
     @requests_mock.Mocker()
     def test_permission_denied(self, m):
@@ -159,5 +173,27 @@ class TestLogin(TestCaseApi):
             'success': False
         })
 
-        with self.assertRaises(SynologyPermissionDeniedException):
+        with self.assertRaises(SynologyApiError) as e:
             self.http._login()
+
+        self.assertEqual(e.exception.code, 402)
+        self.assertEqual(
+            e.exception.message,
+            "Permission denied"
+        )
+
+    @requests_mock.Mocker()
+    def test_common_errors(self, m):
+        for code, message in COMMON_ERROR_CODES.items():
+            m.get('{}/auth.cgi'.format(self.http._get_base_url()), json={
+                'error': {
+                    'code': code
+                },
+                'success': False
+            })
+
+            with self.assertRaises(SynologyCommonError) as e:
+                self.http._login()
+
+            self.assertEqual(e.exception.code, code)
+            self.assertEqual(e.exception.message, message)
