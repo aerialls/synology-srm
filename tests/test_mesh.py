@@ -87,7 +87,7 @@ class TestMesh(TestCaseApi):
                         'model': 'RT2600ac',
                         'node_id': 0,
                         'sn': '176XXXXXX01',
-                        'unique': 'synology_ipq806x_rt2600ac',
+                        'unique': 'synology_xxxxxx_rt2600ac',
                         'uptime': 1833868
                     }
                 ],
