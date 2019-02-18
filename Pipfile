@@ -4,9 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-synology_srm = {path = ".",editable = true}
-"flake8" = ">=3.3.0,<4"
-"nose" = "*"
+"synology_srm"  = {path = ".", editable = true}
+
+"flake8"        = "*"
+"nose"          = "*"
 "requests_mock" = "*"
 
 [packages]
