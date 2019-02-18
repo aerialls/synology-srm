@@ -45,8 +45,12 @@ For instance, to list all endpoints available in the API.
 ```python
 endpoints = client.base.info()
 
-for endpoint in endpoints:
-    print(endpoint)
+for endpoint, config in endpoints.items():
+    print("API endpoint {} (minVersion={}, maxVersion={})".format(
+        endpoint,
+        config['minVersion'],
+        config['maxVersion'],
+    ))
 ```
 
 ## HTTPS auto-signed certificate
