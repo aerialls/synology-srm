@@ -29,16 +29,17 @@ client = synology_srm.Client(
 You can now access all namespaces from the API. The following methods are availabe.
 
 * Base
-  * encryption
-  * info
+  * encryption()
+  * info()
 * Core
-  * ddns_extip
-  * ddns_record
-  * system_utilization
+  * ddns_extip()
+  * ddns_record()
+  * system_utilization()
+  * network_nsm_device(is_online=`True|False|None`)
 * Mesh
-  * network_wanstatus
-  * network_wifidevice
-  * system_info
+  * network_wanstatus()
+  * network_wifidevice()
+  * system_info()
 
 For instance, to list all endpoints available in the API.
 
