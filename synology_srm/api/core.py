@@ -35,3 +35,18 @@ class ApiCore(Api):
             method='list',
             version=1,
         )
+
+    def network_nsm_device(self, is_online=None):
+        """Gets the network NSM device."""
+        response = self.http.call(
+            path='entry.cgi',
+            api='SYNO.Core.Network.NSM.Device',
+            method='get',
+            version=1,
+        )
+
+        devices = response['devices']
+        if isinstance(is_online, bool):
+            return list(filter(lambda d: d['is_online'] is is_online, devices))
+
+        return devices
