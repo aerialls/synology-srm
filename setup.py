@@ -13,7 +13,7 @@ DESCRIPTION = 'Synology SRM API'
 URL = 'https://github.com/aerialls/synology-srm'
 EMAIL = 'julien@aerialls.io'
 AUTHOR = 'Julien Brochet'
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 REQUIRES_PYTHON = '>=3.5.3'
 
 REQUIRED = [
