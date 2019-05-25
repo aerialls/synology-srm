@@ -66,7 +66,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=NETWORK_NSM_DEVICE_PAYLOAD
+            json=NETWORK_NSM_DEVICE_PAYLOAD,
         )
 
         devices = self.client.core.network_nsm_device()
@@ -74,14 +74,29 @@ class TestCore(TestCaseApi):
         self.assertEqual(len(devices), 3)
         self.assertEqual(devices[1]['hostname'], 'DiskStation')
 
-        devices = self.client.core.network_nsm_device(True)
+        devices = self.client.core.network_nsm_device({'is_online': True})
 
         self.assertEqual(len(devices), 2)
         self.assertEqual(devices[1]['hostname'], 'DiskStation')
 
-        devices = self.client.core.network_nsm_device(False)
+        devices = self.client.core.network_nsm_device({'is_online': False})
 
         self.assertEqual(len(devices), 1)
         self.assertEqual(devices[0]['hostname'], 'Computer')
+
+        devices = self.client.core.network_nsm_device({
+            'is_online': True,
+            'connection': 'ethernet',
+        })
+
+        self.assertEqual(len(devices), 1)
+        self.assertEqual(devices[0]['hostname'], 'DiskStation')
+
+        devices = self.client.core.network_nsm_device({
+            'is_online': False,
+            'connection': 'wifi',
+        })
+
+        self.assertEqual(len(devices), 0)
 
         self.http.sid = None

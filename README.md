@@ -35,7 +35,7 @@ You can now access all namespaces from the API. The following methods are availa
   * ddns_extip()
   * ddns_record()
   * system_utilization()
-  * network_nsm_device(is_online=`True|False|None`)
+  * network_nsm_device(filters=`{}`)
 * Mesh
   * network_wanstatus()
   * network_wifidevice()
