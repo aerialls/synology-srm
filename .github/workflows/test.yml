@@ -3,10 +3,10 @@ on: [push]
 jobs:
   test:
     name: Test
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8]
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
@@ -17,6 +17,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pipenv
-          pipenv install --dev
+          pipenv sync --dev
       - name: Test
         run: pipenv run nosetests --nocapture tests/
