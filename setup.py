@@ -10,10 +10,6 @@ from setuptools import find_packages, setup, Command
 
 NAME = 'synology-srm'
 DESCRIPTION = 'Synology SRM API'
-URL = 'https://github.com/aerialls/synology-srm'
-EMAIL = 'julien@aerialls.io'
-AUTHOR = 'Julien Brochet'
-REQUIRES_PYTHON = '>=3.6'
 
 REQUIRED = [
     'requests',
@@ -28,11 +24,8 @@ except FileNotFoundError:
     long_description = DESCRIPTION
 
 about = {}
-if not VERSION:
-    with open(os.path.join(here, NAME, '__version__.py')) as f:
-        exec(f.read(), about)
-else:
-    about['__version__'] = VERSION
+with open(os.path.join(here, 'synology_srm', '__version__.py')) as f:
+    exec(f.read(), about)
 
 setup(
     name=NAME,
@@ -40,10 +33,10 @@ setup(
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author=AUTHOR,
-    author_email=EMAIL,
-    python_requires=REQUIRES_PYTHON,
-    url=URL,
+    author='Julien Brochet',
+    author_email='julien@aerialls.io',
+    python_requires='>=3.6',
+    url='https://github.com/aerialls/synology-srm',
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
     include_package_data=True,
