@@ -1,9 +1,10 @@
 # Synology SRM API
 
-[![Build Status](https://travis-ci.org/aerialls/synology-srm.svg?branch=master)](https://travis-ci.org/aerialls/synology-srm)
-[![PyPi Version](https://img.shields.io/pypi/v/synology-srm.svg)](https://pypi.org/project/synology-srm/)
+[![Build status](https://github.com/aerialls/synology-srm/workflows/Test/badge.svg)](https://github.com/aerialls/synology-srm/actions?query=workflow%3ATest)
+[![PyPi version](https://img.shields.io/pypi/v/synology-srm.svg)](https://pypi.org/project/synology-srm/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/synology-srm.svg)](https://pypi.python.org/pypi/synology-srm/)
 
-Python 3 (>= 3.6) library to use the Synology SRM (Synology Router Manager) API. This is **NOT** the same thing as Synology DSM (DiskStation Manager).
+Python 3 library to use the Synology SRM (Synology Router Manager) API. This is **NOT** the same thing as Synology DSM (DiskStation Manager).
 
 This library should work with the following devices.
 
