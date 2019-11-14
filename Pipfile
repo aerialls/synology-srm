@@ -9,7 +9,6 @@ verify_ssl = true
 "flake8"        = "*"
 "nose"          = "*"
 "requests_mock" = "*"
-"twine"         = "*"
 
 [packages]
 "requests" = "*"
