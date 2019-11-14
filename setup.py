@@ -14,7 +14,7 @@ URL = 'https://github.com/aerialls/synology-srm'
 EMAIL = 'julien@aerialls.io'
 AUTHOR = 'Julien Brochet'
 VERSION = '0.0.7'
-REQUIRES_PYTHON = '>=3.5.3'
+REQUIRES_PYTHON = '>=3.6'
 
 REQUIRED = [
     'requests',
