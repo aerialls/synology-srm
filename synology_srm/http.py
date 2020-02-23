@@ -192,7 +192,7 @@ class SynologyError(SynologyException):
     def __init__(self, code, message):
         self.code = code
         self.message = message
-        super(SynologyException, self).__init__(
+        super(SynologyError, self).__init__(
             "{} (error={})".format(message, code)
         )
 
