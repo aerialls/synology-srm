@@ -37,6 +37,7 @@ You can now access all namespaces from the API. The following methods are availa
   * ddns_record()
   * system_utilization()
   * network_nsm_device(filters=`{}`)
+  * ngfw_traffic(interval=`live|day|week|month`)
 * Mesh
   * network_wanstatus()
   * network_wifidevice()

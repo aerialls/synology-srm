@@ -286,3 +286,105 @@ SYSTEM_INFO_PAYLOAD = {
     },
     'success': True
 }
+
+NETWORK_NGFW_TRAFFIC_PAYLOAD = {
+    'data': [
+        {
+            'deviceID': '64:0d:50:d6:0b:c7',
+            'download': 110,
+            'download_packets': 0,
+            'recs': [
+                {
+                    'download': 110,
+                    'download_packets': 0,
+                    'protocollist': [
+                        {
+                            'download': 51,
+                            'download_packets': 0,
+                            'protocol': 120,
+                            'upload': 39,
+                            'upload_packets': 0
+                        },
+                        {
+                            'download': 59,
+                            'download_packets': 0,
+                            'protocol': 220,
+                            'upload': 39,
+                            'upload_packets': 0
+                        }
+                    ],
+                    'time': 1582464854,
+                    'upload': 78,
+                    'upload_packets': 0
+                }
+            ],
+            'upload': 78,
+            'upload_packets': 0
+        },
+        {
+            'deviceID': 'cd:9e:34:f7:52:25',
+            'download': 6795,
+            'download_packets': 5,
+            'recs': [
+                {
+                    'download': 6795,
+                    'download_packets': 5,
+                    'protocollist': [
+                        {
+                            'download': 55,
+                            'download_packets': 0,
+                            'protocol': 5,
+                            'upload': 30,
+                            'upload_packets': 0
+                        },
+                        {
+                            'download': 6713,
+                            'download_packets': 5,
+                            'protocol': 7,
+                            'upload': 261,
+                            'upload_packets': 2
+                        },
+                        {
+                            'download': 27,
+                            'download_packets': 0,
+                            'protocol': 81,
+                            'upload': 27,
+                            'upload_packets': 0
+                        }
+                    ],
+                    'time': 1582464854,
+                    'upload': 318,
+                    'upload_packets': 2
+                }
+            ],
+            'upload': 318,
+            'upload_packets': 2
+        },
+        {
+            'deviceID': 'ae:40:8e:7d:88:91',
+            'download': 79,
+            'download_packets': 1,
+            'recs': [
+                {
+                    'download': 79,
+                    'download_packets': 1,
+                    'protocollist': [
+                        {
+                            'download': 79,
+                            'download_packets': 1,
+                            'protocol': 37,
+                            'upload': 39,
+                            'upload_packets': 0
+                        }
+                    ],
+                    'time': 1582464854,
+                    'upload': 39,
+                    'upload_packets': 0
+                }
+            ],
+            'upload': 39,
+            'upload_packets': 0
+        },
+    ],
+    'success': True
+}

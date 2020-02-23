@@ -8,6 +8,7 @@ from tests.payload import (
     SYSTEM_UTILIZATION_PAYLOAD,
     DDNS_EXTIP_PAYLOAD,
     DDNS_RECORD_PAYLOAD,
+    NETWORK_NGFW_TRAFFIC_PAYLOAD,
 )
 
 
@@ -100,3 +101,19 @@ class TestCore(TestCaseApi):
         self.assertEqual(len(devices), 0)
 
         self.http.sid = None
+
+    @requests_mock.Mocker()
+    def test_ngfw_traffic(self, m):
+        self._mock_login(m)
+        m.get(
+            '{}/entry.cgi'.format(self.http._get_base_url()),
+            json=NETWORK_NGFW_TRAFFIC_PAYLOAD,
+        )
+
+        devices = self.client.core.ngfw_traffic(interval='live')
+
+        self.assertEqual(len(devices), 3)
+        self.assertEqual(devices[0]['deviceID'], '64:0d:50:d6:0b:c7')
+
+        with self.assertRaises(AttributeError):
+            self.client.core.ngfw_traffic(interval='foobar')

@@ -2,6 +2,7 @@
 
 from synology_srm.api import Api
 
+INTERVAL_VALUES = ['live', 'day', 'week', 'month']
 
 class ApiCore(Api):
     """API Core.
@@ -46,3 +47,21 @@ class ApiCore(Api):
         )
 
         return self._filter(response['devices'], filters)
+
+    def ngfw_traffic(self, interval):
+        """Gets network traffic statistics for the specified interval."""
+        if interval not in INTERVAL_VALUES:
+            raise AttributeError('Interval unknown, must be one of {}'.format(INTERVAL_VALUES))
+
+        params = {
+            'mode': 'net_l7',
+            'interval': interval
+        }
+
+        return self.http.call(
+            path='entry.cgi',
+            api='SYNO.Core.NGFW.Traffic',
+            method='get',
+            params=params,
+            version=1,
+        )
