@@ -9,7 +9,7 @@ class ApiBase(Api):
     Handles the SYNO.API API namespace.
     """
 
-    def info(self):
+    def query_info(self):
         """Gets the API info list."""
         return self.http.call(
             path='query.cgi',
@@ -22,7 +22,7 @@ class ApiBase(Api):
             restricted=False,
         )
 
-    def encryption(self):
+    def getinfo_encryption(self):
         """Gets the API encryption."""
         return self.http.call(
             path='encryption.cgi',

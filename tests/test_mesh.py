@@ -13,14 +13,14 @@ from tests.payload import (
 class TestMesh(TestCaseApi):
 
     @requests_mock.Mocker()
-    def test_network_wifidevice(self, m):
+    def test_get_network_wifidevice(self, m):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
             json=NETWORK_WIFIDEVICE_PAYLOAD,
         )
 
-        devices = self.client.mesh.network_wifidevice()
+        devices = self.client.mesh.get_network_wifidevice()
 
         self.assertEqual(len(devices), 2)
         self.assertEqual(devices[0]['hostname'], 'iPad')
@@ -29,27 +29,27 @@ class TestMesh(TestCaseApi):
         self.http.sid = None
 
     @requests_mock.Mocker()
-    def test_network_wanstatus(self, m):
+    def test_get_network_wanstatus(self, m):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
             json=NETWORK_WANSTATUS_PAYLOAD,
         )
 
-        wanstatus = self.client.mesh.network_wanstatus()
+        wanstatus = self.client.mesh.get_network_wanstatus()
         self.assertEqual(wanstatus['wan_connected'], True)
 
         self.http.sid = None
 
     @requests_mock.Mocker()
-    def test_system_info(self, m):
+    def test_get_system_info(self, m):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
             json=SYSTEM_INFO_PAYLOAD,
         )
 
-        system_info = self.client.mesh.system_info()
+        system_info = self.client.mesh.get_system_info()
         self.assertEqual(
             system_info['nodes'][0]['firmware_ver'],
             'SRM 1.2-7742 Update 5',

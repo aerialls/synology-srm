@@ -9,7 +9,7 @@ class ApiMesh(Api):
     Handles the SYNO.Mesh API namespace.
     """
 
-    def network_wanstatus(self):
+    def get_network_wanstatus(self):
         """Gets the network WAN status."""
         return self.http.call(
             path='entry.cgi',
@@ -18,7 +18,7 @@ class ApiMesh(Api):
             version=1,
         )
 
-    def network_wifidevice(self):
+    def get_network_wifidevice(self):
         """Gets the network Wi-Fi devices."""
         response = self.http.call(
             path='entry.cgi',
@@ -29,7 +29,7 @@ class ApiMesh(Api):
 
         return response['devices']
 
-    def system_info(self):
+    def get_system_info(self):
         """Gets the SRM system info."""
         return self.http.call(
             path='entry.cgi',

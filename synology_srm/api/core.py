@@ -10,7 +10,7 @@ class ApiCore(Api):
     Handles the SYNO.Core API namespace.
     """
 
-    def system_utilization(self):
+    def get_system_utilization(self):
         """Gets the system utilization."""
         return self.http.call(
             path='entry.cgi',
@@ -19,7 +19,7 @@ class ApiCore(Api):
             version=1,
         )
 
-    def ddns_extip(self):
+    def list_ddns_extip(self):
         """Gets the external IP address."""
         return self.http.call(
             path='entry.cgi',
@@ -28,7 +28,7 @@ class ApiCore(Api):
             version=1,
         )
 
-    def ddns_record(self):
+    def list_ddns_record(self):
         """Gets the DDNS record."""
         return self.http.call(
             path='entry.cgi',
@@ -37,7 +37,7 @@ class ApiCore(Api):
             version=1,
         )
 
-    def network_nsm_device(self, filters={}):
+    def get_network_nsm_device(self, filters={}):
         """Gets the network NSM device."""
         response = self.http.call(
             path='entry.cgi',
@@ -48,7 +48,7 @@ class ApiCore(Api):
 
         return self._filter(response['devices'], filters)
 
-    def ngfw_traffic(self, interval):
+    def get_ngfw_traffic(self, interval):
         """Gets network traffic statistics for the specified interval."""
         if interval not in INTERVAL_VALUES:
             raise AttributeError('Interval unknown, must be one of {}'.format(INTERVAL_VALUES))

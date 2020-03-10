@@ -90,7 +90,7 @@ class TestLogin(TestCaseApi):
         self.assertEqual(self.http.sid, 'sid_one')
 
         # Try another API to force the SID renewal
-        devices = self.client.mesh.network_wifidevice()
+        devices = self.client.mesh.get_network_wifidevice()
 
         self.assertEqual(self.http.sid, 'sid_two')
         self.assertEqual(devices, [])
@@ -124,7 +124,7 @@ class TestLogin(TestCaseApi):
         ])
 
         with self.assertRaises(SynologyCommonError) as e:
-            self.client.mesh.network_wifidevice()
+            self.client.mesh.get_network_wifidevice()
 
         self.assertEqual(e.exception.code, 106)
 
