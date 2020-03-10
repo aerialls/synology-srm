@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -13,6 +14,7 @@ COMMON_ERROR_CODES = {
     105: "The logged in session does not have permission",
     106: "Session timeout",
     107: "Session interrupted by duplicate login",
+    117: "Need manager rights for operation",
 }
 
 
@@ -65,7 +67,7 @@ class Http(object):
         }
 
         response = self.call(
-            path='auth.cgi',
+            endpoint='auth.cgi',
             api='SYNO.API.Auth',
             method='Login',
             version=2,
@@ -76,14 +78,21 @@ class Http(object):
 
         self.sid = response['sid']
 
-    def call(self, path: str, api: str, method: str,
-             version: int = 1, params: dict = {},
+    def download(self, path, **kwargs):
+        """Download a file to the local filesystem from the Synology API."""
+        request = self.call(stream=True, **kwargs)
+        with open(path, 'wb') as stream:
+            for chunk in request:
+                stream.write(chunk)
+
+    def call(self, endpoint: str, api: str, method: str,
+             version: int = 1, params: dict = {}, stream: bool = False,
              restricted: bool = True, retried: bool = False,
              errors: dict = {}):
         """Performs an HTTP call to the Synology API."""
         url = '{}/{}'.format(
             self._get_base_url(),
-            path,
+            endpoint,
         )
 
         if restricted and self.sid is None:
@@ -102,6 +111,7 @@ class Http(object):
             verify=self.verify,
             params=params,
             cookies=cookies,
+            stream=stream,
         )
 
         if response.status_code != 200:
@@ -110,6 +120,11 @@ class Http(object):
                     response.status_code
                 )
             )
+
+        if ('content-type' in response.headers and
+            response.headers['content-type'] == 'application/zip'
+        ):
+            return response
 
         data = response.json()
 
@@ -141,7 +156,7 @@ class Http(object):
                     self._login()
                     # Retry the current request with a new token
                     return self.call(
-                        path=path,
+                        endpoint=endpoint,
                         api=api,
                         method=method,
                         version=version,

@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import filecmp
+import os
 import requests_mock
+import tempfile
 
 from tests.api import TestCaseApi
 from tests.payload import (
-    NETWORK_NSM_DEVICE_PAYLOAD,
-    SYSTEM_UTILIZATION_PAYLOAD,
-    DDNS_EXTIP_PAYLOAD,
-    DDNS_RECORD_PAYLOAD,
-    NETWORK_NGFW_TRAFFIC_PAYLOAD,
+    GET_NETWORK_NSM_DEVICE_PAYLOAD,
+    GET_SYSTEM_UTILIZATION_PAYLOAD,
+    LIST_DDNS_EXTIP_PAYLOAD,
+    LIST_DDNS_RECORD_PAYLOAD,
+    GET_NGFW_TRAFFIC_PAYLOAD,
+    LIST_CERTIFICATE_PAYLOAD,
 )
 
 
@@ -19,7 +23,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=SYSTEM_UTILIZATION_PAYLOAD,
+            json=GET_SYSTEM_UTILIZATION_PAYLOAD,
         )
 
         system_utilization = self.client.core.get_system_utilization()
@@ -34,7 +38,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=DDNS_EXTIP_PAYLOAD,
+            json=LIST_DDNS_EXTIP_PAYLOAD,
         )
 
         ddns_extip = self.client.core.list_ddns_extip()
@@ -49,7 +53,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=DDNS_RECORD_PAYLOAD,
+            json=LIST_DDNS_RECORD_PAYLOAD,
         )
 
         ddns_record = self.client.core.list_ddns_record()
@@ -67,7 +71,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=NETWORK_NSM_DEVICE_PAYLOAD,
+            json=GET_NETWORK_NSM_DEVICE_PAYLOAD,
         )
 
         devices = self.client.core.get_network_nsm_device()
@@ -107,7 +111,7 @@ class TestCore(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=NETWORK_NGFW_TRAFFIC_PAYLOAD,
+            json=GET_NGFW_TRAFFIC_PAYLOAD,
         )
 
         devices = self.client.core.get_ngfw_traffic(interval='live')
@@ -117,3 +121,38 @@ class TestCore(TestCaseApi):
 
         with self.assertRaises(AttributeError):
             self.client.core.ngfw_traffic(interval='foobar')
+
+    @requests_mock.Mocker()
+    def test_list_certificate(self, m):
+        self._mock_login(m)
+        m.get(
+            '{}/entry.cgi'.format(self.http._get_base_url()),
+            json=LIST_CERTIFICATE_PAYLOAD
+        )
+
+        certificates = self.client.core.list_certificate()
+        self.assertEqual(certificates[0]['issuer']['common_name'], 'Madalynn Paris')
+
+        self.assertEqual(len(certificates), 3)
+
+    @requests_mock.Mocker()
+    def test_export_certificate(self, m):
+        self._mock_login(m)
+        crt_raw_file = os.path.join(os.path.dirname(__file__), 'data', 'certificate.zip')
+        with open(crt_raw_file, 'rb') as zip:
+            m.get(
+                '{}/entry.cgi'.format(self.http._get_base_url()),
+                content=zip.read(),
+                headers={
+                    'Content-Type': 'application/zip'
+                },
+
+            )
+
+        crt_downloaded_file = tempfile.mktemp()
+        self.client.core.export_certificate(crt_downloaded_file)
+
+        # Both files should be the same
+        self.assertTrue(filecmp.cmp(crt_raw_file, crt_downloaded_file))
+
+        os.remove(crt_downloaded_file)

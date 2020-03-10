@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-NETWORK_NSM_DEVICE_PAYLOAD = {
+GET_NETWORK_NSM_DEVICE_PAYLOAD = {
     'data': {
         'devices': [
             {
@@ -71,7 +71,7 @@ NETWORK_NSM_DEVICE_PAYLOAD = {
     'success': True
 }
 
-SYSTEM_UTILIZATION_PAYLOAD = {
+GET_SYSTEM_UTILIZATION_PAYLOAD = {
     'data': {
         'cpu': {
             '15min_load': 8,
@@ -161,7 +161,7 @@ SYSTEM_UTILIZATION_PAYLOAD = {
     'success': True
 }
 
-DDNS_EXTIP_PAYLOAD = {
+LIST_DDNS_EXTIP_PAYLOAD = {
     'data': [
         {
             'ip': '92.10.197.59',
@@ -172,7 +172,7 @@ DDNS_EXTIP_PAYLOAD = {
     'success': True
 }
 
-DDNS_RECORD_PAYLOAD = {
+LIST_DDNS_RECORD_PAYLOAD = {
     'data': {
         'next_update_time': '2019-02-16 08:52',
         'records': [
@@ -194,7 +194,7 @@ DDNS_RECORD_PAYLOAD = {
     'success': True
 }
 
-INFO_PAYLOAD = {
+QUERY_INFO_PAYLOAD = {
     'data': {
         'SYNO.API.Auth': {
             'maxVersion': 3,
@@ -210,7 +210,7 @@ INFO_PAYLOAD = {
     'success': True
 }
 
-ENCRYPTION_PAYLOAD = {
+GETINFO_ENCRYPTION_PAYLOAD = {
     'data': {
         'cipherkey': '__cIpHeRtExT',
         'ciphertoken': '__cIpHeRtOkEn',
@@ -220,7 +220,7 @@ ENCRYPTION_PAYLOAD = {
     'success': True
 }
 
-NETWORK_WIFIDEVICE_PAYLOAD = {
+GET_NETWORK_WIFIDEVICE_PAYLOAD = {
     'data': {
         'devices': [
             {
@@ -262,14 +262,14 @@ NETWORK_WIFIDEVICE_PAYLOAD = {
     'success': True
 }
 
-NETWORK_WANSTATUS_PAYLOAD = {
+GET_NETWORK_WANSTATUS_PAYLOAD = {
     'data': {
         'wan_connected': True
     },
     'success': True
 }
 
-SYSTEM_INFO_PAYLOAD = {
+GET_SYSTEM_INFO_PAYLOAD = {
     'data': {
         'nodes': [
             {
@@ -287,7 +287,7 @@ SYSTEM_INFO_PAYLOAD = {
     'success': True
 }
 
-NETWORK_NGFW_TRAFFIC_PAYLOAD = {
+GET_NGFW_TRAFFIC_PAYLOAD = {
     'data': [
         {
             'deviceID': '64:0d:50:d6:0b:c7',
@@ -386,5 +386,56 @@ NETWORK_NGFW_TRAFFIC_PAYLOAD = {
             'upload_packets': 0
         },
     ],
+    'success': True
+}
+
+LIST_CERTIFICATE_PAYLOAD = {
+    'data': {
+        'certificates': [
+            {
+                'issuer': {
+                    'common_name': 'Madalynn Paris'
+                },
+                'signature_algorithm': 'sha256WithRSAEncryption',
+                'subject': {
+                    'common_name': 'routerstation.madalynn.xyz'
+                },
+                'type': 'server_cert'
+            },
+            {
+                'issuer': {
+                    'city': 'Taipei',
+                    'common_name': 'Synology Inc. CA',
+                    'country': 'TW',
+                    'department': 'Certificate Authority',
+                    'email': 'product@synology.com',
+                    'organization': 'Synology Inc.',
+                    'state': 'Taiwan'
+                },
+                'signature_algorithm': 'sha256WithRSAEncryption',
+                'subject': {
+                    'city': 'Taipei',
+                    'common_name': 'Synology Inc. CA',
+                    'country': 'TW',
+                    'department': 'Certificate Authority',
+                    'email': 'product@synology.com',
+                    'organization': 'Synology Inc.',
+                    'state': 'Taiwan'
+                },
+                'type': 'root_cert'
+            },
+            {
+                'issuer': {
+                    'common_name': 'Madalynn Paris'
+                },
+                'signature_algorithm': 'sha256WithRSAEncryption',
+                'subject': {
+                    'common_name': 'Madalynn Paris'
+                },
+                'type': 'inter_cert'
+            }
+        ],
+        'renewable': False
+    },
     'success': True
 }

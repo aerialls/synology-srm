@@ -38,6 +38,8 @@ You can now access all namespaces from the API. The following methods are availa
   * get_system_utilization()
   * get_network_nsm_device(filters=`{}`)
   * get_ngfw_traffic(interval=`live|day|week|month`)
+  * list_certificate()
+  * export_certificate(path=`certificate.zip`)
 * Mesh
   * get_network_wanstatus()
   * get_network_wifidevice()

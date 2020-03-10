@@ -4,8 +4,8 @@ import requests_mock
 
 from tests.api import TestCaseApi
 from tests.payload import (
-    INFO_PAYLOAD,
-    ENCRYPTION_PAYLOAD,
+    QUERY_INFO_PAYLOAD,
+    GETINFO_ENCRYPTION_PAYLOAD,
 )
 
 
@@ -16,7 +16,7 @@ class TestBase(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/query.cgi'.format(self.http._get_base_url()),
-            json=INFO_PAYLOAD,
+            json=QUERY_INFO_PAYLOAD,
         )
 
         info = self.client.base.query_info()
@@ -31,7 +31,7 @@ class TestBase(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/encryption.cgi'.format(self.http._get_base_url()),
-            json=ENCRYPTION_PAYLOAD,
+            json=GETINFO_ENCRYPTION_PAYLOAD,
         )
 
         encryption = self.client.base.getinfo_encryption()

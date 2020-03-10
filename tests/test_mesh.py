@@ -4,9 +4,9 @@ import requests_mock
 
 from tests.api import TestCaseApi
 from tests.payload import (
-    NETWORK_WIFIDEVICE_PAYLOAD,
-    NETWORK_WANSTATUS_PAYLOAD,
-    SYSTEM_INFO_PAYLOAD,
+    GET_NETWORK_WIFIDEVICE_PAYLOAD,
+    GET_NETWORK_WANSTATUS_PAYLOAD,
+    GET_SYSTEM_INFO_PAYLOAD,
 )
 
 
@@ -17,7 +17,7 @@ class TestMesh(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=NETWORK_WIFIDEVICE_PAYLOAD,
+            json=GET_NETWORK_WIFIDEVICE_PAYLOAD,
         )
 
         devices = self.client.mesh.get_network_wifidevice()
@@ -33,7 +33,7 @@ class TestMesh(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=NETWORK_WANSTATUS_PAYLOAD,
+            json=GET_NETWORK_WANSTATUS_PAYLOAD,
         )
 
         wanstatus = self.client.mesh.get_network_wanstatus()
@@ -46,7 +46,7 @@ class TestMesh(TestCaseApi):
         self._mock_login(m)
         m.get(
             '{}/entry.cgi'.format(self.http._get_base_url()),
-            json=SYSTEM_INFO_PAYLOAD,
+            json=GET_SYSTEM_INFO_PAYLOAD,
         )
 
         system_info = self.client.mesh.get_system_info()

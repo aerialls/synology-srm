@@ -12,7 +12,7 @@ class ApiMesh(Api):
     def get_network_wanstatus(self):
         """Gets the network WAN status."""
         return self.http.call(
-            path='entry.cgi',
+            endpoint='entry.cgi',
             api='SYNO.Mesh.Network.WANStatus',
             method='get',
             version=1,
@@ -21,7 +21,7 @@ class ApiMesh(Api):
     def get_network_wifidevice(self):
         """Gets the network Wi-Fi devices."""
         response = self.http.call(
-            path='entry.cgi',
+            endpoint='entry.cgi',
             api='SYNO.Mesh.Network.WifiDevice',
             method='get',
             version=1,
@@ -32,7 +32,7 @@ class ApiMesh(Api):
     def get_system_info(self):
         """Gets the SRM system info."""
         return self.http.call(
-            path='entry.cgi',
+            endpoint='entry.cgi',
             api='SYNO.Mesh.System.Info',
             method='get',
             version=1,
