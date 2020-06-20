@@ -1,8 +1,10 @@
 name: Test
-on: [push]
+on:
+  push:
+
 jobs:
-  test:
-    name: Test
+  build:
+    name: Nosetests
     runs-on: ubuntu-latest
     strategy:
       matrix:
