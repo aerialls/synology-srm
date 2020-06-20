@@ -21,4 +21,4 @@ jobs:
           pip install pipenv
           pipenv sync --dev
       - name: Test
-        run: pipenv run nosetests --nocapture tests/
+        run: pipenv run nose2 -v
