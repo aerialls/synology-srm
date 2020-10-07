@@ -58,6 +58,19 @@ for endpoint, config in endpoints.items():
     ))
 ```
 
+## Manual endpoints
+
+It's possible to target endpoints not directly supported by this library by using the raw `http` client.
+
+```python
+response = client.http.call(
+    endpoint='entry.cgi',
+    api='SYNO.Core.System.Utilization',
+    method='get',
+    version=1,
+)
+```
+
 ## HTTPS auto-signed certificate
 
 You can disable the HTTPS certificate verification if you are using a self-signed certificate.
