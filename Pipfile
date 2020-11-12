@@ -11,4 +11,4 @@ verify_ssl = true
 "requests_mock" = "==1.8.0"
 
 [packages]
-"requests" = "==2.24.0"
+"requests" = "==2.25.0"
