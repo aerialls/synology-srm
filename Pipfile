@@ -8,7 +8,7 @@ verify_ssl = true
 
 "flake8"        = "==3.9.1"
 "nose2"         = "==0.10.0"
-"requests_mock" = "==1.9.1"
+"requests_mock" = "==1.9.2"
 
 [packages]
 "requests" = "==2.25.1"
