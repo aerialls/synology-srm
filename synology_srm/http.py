@@ -122,7 +122,7 @@ class Http(object):
             )
 
         if ('content-type' in response.headers and
-            response.headers['content-type'] == 'application/zip'
+            response.headers['content-type'] in ['application/zip', 'application/octet-stream']
         ):
             return response
 
