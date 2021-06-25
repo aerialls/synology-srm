@@ -180,8 +180,11 @@ class Http(object):
                 code,
                 message,
             )
-
-        return data['data']
+        try:
+            return data['data']
+        except KeyError:
+            return data;
+        #return data['data'] #this was thowing errors when no data
 
     def _get_common_error_message(self, code):
         """Gets the official message errror from
