@@ -7,7 +7,7 @@ verify_ssl = true
 "synology_srm"  = {path = ".", editable = true}
 
 "flake8"        = "==3.9.2"
-"nose2"         = "==0.11.0"
+"nose2"         = "==0.12.0"
 "requests_mock" = "==1.9.3"
 
 [packages]
