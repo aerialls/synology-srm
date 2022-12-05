@@ -8,7 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,7 +22,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install pipenv
-          pipenv sync --dev
+          pip install poetry==1.2.2
+          poetry install --sync
       - name: Test
-        run: pipenv run nose2 -v
+        run: poetry run nose2 -v
