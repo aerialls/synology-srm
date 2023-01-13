@@ -8,7 +8,7 @@ packages = [{include = "synology_srm"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4"
-requests = "2.28.1"
+requests = "2.28.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "6.0.0"
