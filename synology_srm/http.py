@@ -2,6 +2,7 @@
 
 import os
 import requests
+from urllib.parse import urlencode
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -78,6 +79,9 @@ class Http(object):
 
         self.sid = response['sid']
 
+    def _to_query_string(self, params):
+        return urlencode(params, doseq=True).replace('+', '%20')
+
     def download(self, path, **kwargs):
         """Download a file to the local filesystem from the Synology API."""
         request = self.call(stream=True, **kwargs)
@@ -109,7 +113,7 @@ class Http(object):
         response = requests.get(
             url,
             verify=self.verify,
-            params=params,
+            params=self._to_query_string(params),
             cookies=cookies,
             stream=stream,
         )
