@@ -70,19 +70,19 @@ files = [
 
 [[package]]
 name = "nose2"
-version = "0.12.0"
-description = "unittest2 with plugins, the successor to nose"
+version = "0.13.0"
+description = "unittest with plugins"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 files = [
-    {file = "nose2-0.12.0-py2.py3-none-any.whl", hash = "sha256:da7eb5e3cbe2abb693a053e17b4fbefca98ea9ea79fc729b0b0f41e8b4196304"},
-    {file = "nose2-0.12.0.tar.gz", hash = "sha256:956e79b9bd558ee08b6200c05ad2c76465b7e3860c0c0537686089285c320113"},
+    {file = "nose2-0.13.0-py3-none-any.whl", hash = "sha256:e29017c9309fe2c8b8a1f1db7a0e7526acaba0c3990f32a0d961e6a7bc5cc190"},
+    {file = "nose2-0.13.0.tar.gz", hash = "sha256:57c68ad676ef4b88b50694937eb52f4943aa1ca261074b4909b6e163046b46f0"},
 ]
 
 [package.extras]
 coverage-plugin = ["coverage"]
-dev = ["Sphinx", "mock", "sphinx-issues", "sphinx-rtd-theme"]
+dev = ["Sphinx", "sphinx-issues", "sphinx-rtd-theme"]
 
 [[package]]
 name = "pycodestyle"
@@ -182,4 +182,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4"
-content-hash = "e42d2072abdb0b37841d402abf23bfc97337bb9f9fda15d85f4fc124f6efb3a3"
+content-hash = "b732cf277123ff6d9f8befa57dab15a10f59268712f436a145c945f7c2d34660"
